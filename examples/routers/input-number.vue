@@ -6,7 +6,17 @@
         <!--<div @click="changeMax">change max</div>-->
         <!--<Input-number disabled :max="10" :min="1" :step="1.2" v-model="v2"></Input-number>-->
         <!--<Input-number :max="10" :min="1" v-model="obj.v"></Input-number>-->
-        <InputNumber :editable="false" :max="10" :min="1" :step="1.2" v-model="value2"></InputNumber>
+        <InputNumber
+        :editable="false"
+        :max="10"
+        :min="1"
+        :step="1.2"
+        v-model="value2" 
+        @on-change="e.push('onChange')"
+        @on-focus="e.push('onFocus')"
+        @on-blur="e.push('onBlur')"
+        @on-enter="e.push('onEnter')"></InputNumber>
+        {{e}}
         <InputNumber :precision="1" :max="10" :min="1" :step="0.1" v-model="value1"></InputNumber>
     </div>
 </template>
@@ -18,6 +28,7 @@
                 v1: 1,
                 v2: 1,
                 max: 10,
+                e:[],
                 autofocus: true,
                 obj: {
 
