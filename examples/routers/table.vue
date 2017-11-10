@@ -790,22 +790,40 @@
 <template>
     <div>
         <div style="width: 550px;">
-            <Table height="200" border :columns="columns2" :data="data4"></Table>
+            <Table  ref="selection" height="200" border :columns="columns2" :data="data4" @on-select-all="selectAll"  @on-select-cancel-all="selectCancelAll"></Table>
         </div>
-        <br><br><br>
+
         <Table width="550" height="200" border :columns="columns2" :data="data4"></Table>
+
+
+        <br><br><br>
+        <div>
+            全选：
+            {{selection}}
+        </div>
+        <div>
+            取消：
+            {{selectionCancel}}
+        </div>
     </div>
+
 </template>
 <script>
     export default {
         data () {
             return {
+                selection:[],
+                selectionCancel:[],
                 columns2: [
+                    {
+                        type: 'selection',
+                        width: 60,
+                        align: 'center'
+                    },
                     {
                         title: 'Name',
                         key: 'name',
                         width: 100,
-//                        fixed: 'left'
                     },
                     {
                         title: 'Age',
@@ -922,7 +940,14 @@
                     }
                 ]
             }
+        },
+        methods: {
+            selectAll(selection) {
+                this.selection = selection;
+            },
+            selectCancelAll(selection){
+                this.selectionCancel =selection
+            },
         }
     }
 </script>
-

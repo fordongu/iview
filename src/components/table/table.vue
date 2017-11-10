@@ -423,6 +423,13 @@
                 }
                 return JSON.parse(JSON.stringify(this.data.filter((data, index) => selectionIndexes.indexOf(index) > -1)));
             },
+            getCurrentData () {
+                let currentDataIndexes = [];
+                for (let i in this.objData) {
+                    currentDataIndexes.push(parseInt(i));
+                }
+                return JSON.parse(JSON.stringify(this.data.filter((data, index) => currentDataIndexes.indexOf(index) > -1)));
+            },
             toggleSelect (_index) {
                 let data = {};
 
@@ -470,6 +477,9 @@
                 const selection = this.getSelection();
                 if (status) {
                     this.$emit('on-select-all', selection);
+                }else{
+                    const currentData = this.getCurrentData();
+                    this.$emit('on-select-cancel-all', currentData);
                 }
                 this.$emit('on-selection-change', selection);
             },

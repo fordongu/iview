@@ -241,8 +241,8 @@
                 this.$emit('on-focus');
                 this.focused = true;
             },
-            blur () {
-                this.$emit('on-blur');
+            blur (event) {
+                this.$emit('on-blur',event);
                 this.focused = false;
             },
             keyDown (e) {
