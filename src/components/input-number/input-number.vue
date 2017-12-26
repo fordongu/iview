@@ -238,9 +238,10 @@
                 });
             },
             focus () {
-                this.$emit('on-focus');
                 this.focused = true;
+                this.$emit('on-focus');
             },
+            //dodongu 增加失去焦点时返回event
             blur (event) {
                 this.$emit('on-blur',event);
                 this.focused = false;
@@ -260,11 +261,15 @@
                 let val = event.target.value.trim();
 
                 if (event.type == 'input' && val.match(/^\-?\.?$|\.$/)) return; // prevent fire early if decimal. If no more input the change event will fire later
-                if (event.type == 'change' && Number(val) === this.currentValue) return; // already fired change for input event
 
                 const {min, max} = this;
                 const isEmptyString = val.length === 0;
                 val = Number(val);
+
+                if (event.type == 'change'){
+                    if (val === this.currentValue && val > min && val < max) return; // already fired change for input event
+                }
+
                 if (!isNaN(val) && !isEmptyString) {
                     this.currentValue = val;
 

@@ -22,7 +22,16 @@ export default {
             if (column.width) {
                 width = column.width;
             } else if (this.columnsWidth[column._index]) {
-                width = this.columnsWidth[column._index].width;
+                //dodongu 增加最小宽度
+                if(column.minWidth){
+                    if(this.columnsWidth[column._index].width > column.minWidth){
+                        width = this.columnsWidth[column._index].width;
+                    }else{
+                        width = column.minWidth;
+                    }
+                }else{
+                    width = this.columnsWidth[column._index].width;
+                }
             }
             // when browser has scrollBar,set a width to resolve scroll position bug
             if (this.columns.length === index + 1 && top && this.$parent.bodyHeight !== 0) {
